@@ -1,0 +1,66 @@
+# Project Name
+
+[Project Description]
+
+## Initialization API
+
+To initialize the database tables, you can use the following API:
+
+### Endpoint
+
+`POST /initializeDatabase`
+
+### Payload
+
+```json
+{
+    "connectionOptions": {
+        "host": "192.168.2.49",
+        "port": 5058,
+        "username": "postgres",
+        "password": "Red*St0ne",
+        "database": "db_vhs_import"
+    },
+    "patientId": [Patient ID],
+    "adminId": [Admin ID]
+}
+```
+
+- Replace `[Patient ID]` with the ID of the patient you want to preserve in the database. If you don't want to preserve any patient, set it to `null`.
+- Replace `[Admin ID]` with the ID of the admin you want to preserve in the database. If you don't want to preserve any admin, set it to `null`.
+
+### Response
+
+- If the initialization is successful, the API will return a response with a status code of 200.
+- If there is an error during initialization, the API will return a response with a status code of 500 and an error message.
+
+## Dependencies
+
+- [TypeORM](https://typeorm.io) - TypeORM is used to interact with the database and manage data models.
+- [Express](https://expressjs.com) - Express is used to create the API endpoints and handle HTTP requests.
+- [Body-parser](https://www.npmjs.com/package/body-parser) - Body-parser is used to parse JSON data in the request body.
+
+## Installation
+
+1. Clone the repository: `git clone [repository_url]`
+2. Install dependencies: `npm install`
+
+## Running the Server
+
+To start the server, run the following command:
+
+```
+npm start
+```
+
+The server will start listening on port 3000.
+
+## How to Use
+
+1. Make sure the PostgreSQL server is running and accessible using the provided connection options in the payload.
+2. Use a tool like [Postman](https://www.postman.com) to send a POST request to `http://localhost:3000/initializeDatabase` with the payload as shown above.
+3. The database tables specified in `tablesToClear` will be cleared, except for the patient and admin with the IDs provided in the payload.
+4. Dont include type tables in tablesToClear.
+   Please make sure to handle sensitive information (like passwords and database credentials) securely, and ensure that only authorized users have access to this initialization API.
+
+**Note**: The provided code and instructions assume that you have a PostgreSQL database running at the specified host and port and that the required tables exist in the database. Additionally, exercise caution when using this API, as it performs potentially irreversible actions on the database. Always back up your data before running any initialization scripts.
